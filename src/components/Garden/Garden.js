@@ -9,7 +9,10 @@ const garden = (props) => {
     });
     return (
         <React.Fragment>
-            <Grid container spacing={5} direction="row" alignItems="center" justify="center">
+            <Grid 
+                container
+                spacing={2}
+                justify="center">
                 {beds}
             </Grid>
         </React.Fragment>

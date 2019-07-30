@@ -1,0 +1,11 @@
+.Space {
+    background-color: #d9c98f;
+    color: #d9c98f;
+    padding: 100;
+}
+
+.Space:hover {
+    background-color: #c5facc;
+    color: #37f230;
+    padding: 100;
+}
