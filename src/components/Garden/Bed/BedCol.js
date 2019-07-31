@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Grid, Typography } from '@material-ui/core';
+import PlantMenu from '../Plant/PlantMenu';
 import classes from './Bed.module.css';
 
 const bedCol = (props) => {
@@ -11,6 +12,7 @@ const bedCol = (props) => {
                         style={{textAlign: "center", margin: 5}}>
                         Plant something!
                     </Typography>
+                    <PlantMenu style={{align: "right"}}/>
             </Card>
         </Grid>
     )
