@@ -19,7 +19,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export default function PlantMenu() {
+export default function PlantMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -27,8 +27,9 @@ export default function PlantMenu() {
         setAnchorEl(event.currentTarget);
     }
 
-    function handleClose() {
+    function handleClose(type) {
         setAnchorEl(null);
+        props.addPlant(type);
     }
 
   return (
@@ -53,7 +54,7 @@ export default function PlantMenu() {
             },
             }}>
                 {options.map(option => (
-                    <MenuItem key={option} onClick={handleClose}>
+                    <MenuItem key={option} onClick={() => handleClose(option)}>
                         {option}
                     </MenuItem>
                 ))}

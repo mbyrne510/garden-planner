@@ -10,7 +10,6 @@ class GardenPlanner extends Component {
     addBedHandler = () => {
         let bedCt = this.state.beds;
         bedCt++;
-        console.log(bedCt);
         this.setState({beds: bedCt});
     }
 

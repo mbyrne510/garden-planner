@@ -21,31 +21,32 @@ class Bed extends Component {
         },
         maxRows: false,
         maxCols: false,
-        minRows: false,
-        minCols: false
+        minRows: true,
+        minCols: true
     }
 
     addRowHandler = () => {
         let newRows = this.state.numRows;
         newRows++;
         this.setState({numRows: newRows});
-        if (this.state.numRows >= 7) {
+        if (this.state.numRows >= 3) {
             this.setState({maxRows: true});
         }
         else {
-            this.setState({maxRows: false});
-        }    
+            this.setState({minRows: false});
+        }
+        console.log(this.state.plants);
     }
 
     addColHandler = () => {
         let newCols = this.state.numCols;
         newCols++;
         this.setState({numCols: newCols});
-        if (this.state.numCols >= 7) {
+        if (this.state.numCols >= 3) {
             this.setState({maxCols: true});
         }
         else {
-            this.setState({maxCols: false});
+            this.setState({minCols: false});
         }    
     }
 
@@ -53,11 +54,11 @@ class Bed extends Component {
         let newRows = this.state.numRows;
         newRows--;
         this.setState({numRows: newRows});
-        if (this.state.numRows <= 1) {
+        if (this.state.numRows <= 2) {
             this.setState({minRows: true});
         }
         else {
-            this.setState({minRows: false});
+            this.setState({maxRows: false});
         }    
     }
 
@@ -65,24 +66,25 @@ class Bed extends Component {
         let newCols = this.state.numCols;
         newCols--;
         this.setState({numCols: newCols});
-        if (this.state.numCols <= 1) {
+        if (this.state.numCols <= 2) {
             this.setState({minCols: true});
         }
         else {
-            this.setState({minCols: false});
+            this.setState({maxCols: false});
         }    
     }
 
     addPlantHandler = (type) => {
         const oldPlants = {...this.state.plants};
         const newPlants = oldPlants;
-        newPlants[type] = oldPlants[type]++;
+        oldPlants[type]++;
+        newPlants[type] = oldPlants[type];
         this.setState({plants: newPlants});
     }
 
     render() {
         const cols = [...Array(this.state.numCols)].map((col, i) => {
-            return <BedCol key={i}/>
+            return <BedCol key={i} addPlant={this.addPlantHandler}/>
         });
 
         const rows = [...Array(this.state.numRows)].map((col, i) => {
@@ -91,7 +93,7 @@ class Bed extends Component {
 
         return (
             <React.Fragment>
-                <Grid item>
+                <Grid item xs={9} lg={3}>
                     <Paper elevation={5} style={{textAlign: "center"}}>
                         <Container>
                             {rows}
