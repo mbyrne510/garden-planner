@@ -6,15 +6,16 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const options = [
     'none',
     'artichoke',
-    'basil',
+    'blueberry',
+    'broccoli',
     'carrots',
-    'eggplant',
-    'garlic',
+    'lettuce',
     'onions',
     'peas',
     'potatoes',
-    'spinach',
+    'strawberries',
     'tomatoes',
+    'watermelon'
 ]
 
 const ITEM_HEIGHT = 48;
@@ -29,7 +30,7 @@ export default function PlantMenu(props) {
 
     function handleClose(type) {
         setAnchorEl(null);
-        props.addPlant(type);
+        props.updatePlant(type);
     }
 
   return (
@@ -54,7 +55,7 @@ export default function PlantMenu(props) {
             },
             }}>
                 {options.map(option => (
-                    <MenuItem key={option} onClick={() => handleClose(option)}>
+                    <MenuItem key={option} selected={option === 'none'} onClick={() => handleClose(option)}>
                         {option}
                     </MenuItem>
                 ))}

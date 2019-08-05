@@ -2,28 +2,43 @@ import React, { Component } from 'react';
 import { Grid, Paper, Button, Container } from '@material-ui/core';
 import BedCol from './BedCol';
 import BedRow from './BedRow';
+import axios from '../../../axios-garden';
 
 class Bed extends Component {
     state = {
         numRows: 1,
         numCols: 1,
-        plants: {
-            artichoke: 0,
-            basil: 0,
-            carrots: 0,
-            eggplant: 0,
-            garlic: 0,
-            onions: 0,
-            peas: 0,
-            potatoes: 0,
-            spinach: 0,
-            tomatoes: 0    
-        },
+        // plants: {
+        //     artichoke: 0,
+        //     blueberry: 0,
+        //     broccoli: 0,
+        //     carrots: 0,
+        //     lettuce: 0,
+        //     onions: 0,
+        //     peas: 0,
+        //     potatoes: 0,
+        //     strawberries: 0,
+        //     tomatoes: 0,
+        //     watermelon: 0    
+        // },
+        plants: null,
         maxRows: false,
         maxCols: false,
         minRows: true,
-        minCols: true
+        minCols: true,
+        error: false
     }
+
+    // componentDidMount() {
+    //     axios.get('https://garden-planner-baff9.firebaseio.com/plants.json')
+    //         .then(response => {
+    //             this.setState({plants: response.data});
+    //             console.log(response.data);
+    //         })
+    //         .catch(error => {
+    //                 this.setState({error: true});
+    //         });
+    // }
 
     addRowHandler = () => {
         let newRows = this.state.numRows;
@@ -35,7 +50,7 @@ class Bed extends Component {
         else {
             this.setState({minRows: false});
         }
-        console.log(this.state.plants);
+        // console.log(this.state.plants);
     }
 
     addColHandler = () => {
@@ -74,17 +89,24 @@ class Bed extends Component {
         }    
     }
 
-    addPlantHandler = (type) => {
-        const oldPlants = {...this.state.plants};
-        const newPlants = oldPlants;
-        oldPlants[type]++;
-        newPlants[type] = oldPlants[type];
+    updatePlantsHandler = (oldType, newType) => {
+        let oldPlants = {...this.state.plants};
+        oldPlants[oldType]--;
+        oldPlants[newType]++;
+        let newPlants = oldPlants;
         this.setState({plants: newPlants});
+        const changes = newPlants;
+
+        axios.put('/plants.json', changes)
+            .then(response => {
+                // console.log('data transmitted');
+            });
+        // .catch(error => this.setState({loading: false, purchasing: false}));
     }
 
     render() {
         const cols = [...Array(this.state.numCols)].map((col, i) => {
-            return <BedCol key={i} addPlant={this.addPlantHandler}/>
+            return <BedCol key={i} updatePlant={this.updatePlantsHandler}/>
         });
 
         const rows = [...Array(this.state.numRows)].map((col, i) => {

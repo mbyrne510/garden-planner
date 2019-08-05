@@ -1,18 +1,17 @@
 import React from 'react';
 import { Card, Grid, Typography } from '@material-ui/core';
 import PlantMenu from '../Plant/PlantMenu';
-import PlantIcon from '../Plant/Plant';
+import PlantIcon from '../Plant/PlantIcon';
 import classes from './Bed.module.css';
 
 export default function BedCol(props) {
     const [plantType, setPlantType] = React.useState(null);
 
-    function depictPlant(type) {
-        props.addPlant(type);
-        setPlantType(type);
+    function updatePlantHandler(newType) {
+        const oldType = plantType;
+        props.updatePlant(oldType, newType);
+        setPlantType(newType);
     }
-
-    // console.log(plantType);
 
     if (plantType) {
         var fill = (
@@ -20,9 +19,9 @@ export default function BedCol(props) {
                 <Card elevation={2}
                     className={classes.Space}>
                         <div style={{padding: 14}}>
-                            <PlantIcon/>
+                            <PlantIcon plantChoice={plantType}/>
                         </div>
-                        <PlantMenu addPlant={depictPlant} style={{align: "right"}}/>
+                        <PlantMenu updatePlant={updatePlantHandler} style={{align: "right"}}/>
                 </Card>
             </Grid>
         )
@@ -36,7 +35,7 @@ export default function BedCol(props) {
                             style={{textAlign: "center"}}>
                             Choose plant:
                         </Typography>
-                        <PlantMenu addPlant={depictPlant} style={{align: "right"}}/>
+                        <PlantMenu updatePlant={updatePlantHandler} style={{align: "right"}}/>
                 </Card>
             </Grid>
         )
