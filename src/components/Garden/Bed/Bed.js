@@ -50,7 +50,6 @@ class Bed extends Component {
         else {
             this.setState({minRows: false});
         }
-        // console.log(this.state.plants);
     }
 
     addColHandler = () => {
@@ -105,12 +104,41 @@ class Bed extends Component {
     }
 
     render() {
-        const cols = [...Array(this.state.numCols)].map((col, i) => {
-            return <BedCol key={i} updatePlant={this.updatePlantsHandler}/>
-        });
+        let bedMatrix = [];
+        const plantVals = Object.values(this.props.bedLayout.plants);
+        for (let i = 0; i < 4; i++) {
+            bedMatrix[i] = [];
+            for (let j = 0; j < 4; j++) {
+                bedMatrix[i][j] = plantVals[j+4*i];
+            }
+        }
 
-        const rows = [...Array(this.state.numRows)].map((col, i) => {
-            return <BedRow key={i} cols={cols}/>
+        for (let i = 0; i < 4; i++) {
+            bedMatrix[i] = bedMatrix[i].filter(plant => plant !== 0);
+        }
+
+        bedMatrix = bedMatrix.filter(row => row.length !== 0);
+
+        for (let i = 0; i < bedMatrix.length; i++) {
+            bedMatrix[i] = bedMatrix[i].map((plant, j) => {
+                return <BedCol key={j} updatePlant={this.updatePlantsHandler} origPlant={plant}/>
+            });
+        }
+
+        // const cols = bedMatrix.map(row => row.map(col => ))
+
+        // const rows1 = bedMatrix.map((col, i) => {
+        //     return <BedRow key={i} cols={col} />
+        // });
+
+        // console.log(rows1);
+        
+        // const cols = [...Array(this.props.bedLayout.numCols)].map((col, i) => {
+        //     return <BedCol key={i} updatePlant={this.updatePlantsHandler}/>
+        // });
+
+        const rows = bedMatrix.map((plants, i) => {
+            return <BedRow key={i} cols={plants}/>
         });
 
         return (

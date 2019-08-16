@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Grid, Typography } from '@material-ui/core';
 import PlantMenu from '../Plant/PlantMenu';
 import PlantIcon from '../Plant/PlantIcon';
@@ -7,6 +7,12 @@ import classes from './Bed.module.css';
 export default function BedCol(props) {
     const [plantType, setPlantType] = React.useState(null);
 
+    useEffect(
+        () => {
+            setPlantType(props.origPlant);
+        }, [props.origPlant]
+    // setPlantType(props.origPlant);
+    )
     function updatePlantHandler(newType) {
         const oldType = plantType;
         props.updatePlant(oldType, newType);
