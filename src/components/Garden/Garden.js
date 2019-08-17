@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 const garden = (props) => {
     if (props.bedCt > 0) {
         const beds = Object.keys(props.beds).map((bed, i) => {
-            return <Bed bedLayout={props.beds[bed]} key={i}/>
+            return <Bed bedLayout={props.beds[bed]} key={i} bedNum={i}/>
         });
         return (
             <React.Fragment>

@@ -8,37 +8,13 @@ class Bed extends Component {
     state = {
         numRows: 1,
         numCols: 1,
-        // plants: {
-        //     artichoke: 0,
-        //     blueberry: 0,
-        //     broccoli: 0,
-        //     carrots: 0,
-        //     lettuce: 0,
-        //     onions: 0,
-        //     peas: 0,
-        //     potatoes: 0,
-        //     strawberries: 0,
-        //     tomatoes: 0,
-        //     watermelon: 0    
-        // },
         plants: null,
         maxRows: false,
         maxCols: false,
         minRows: true,
         minCols: true,
-        error: false
+        // error: false
     }
-
-    // componentDidMount() {
-    //     axios.get('https://garden-planner-baff9.firebaseio.com/plants.json')
-    //         .then(response => {
-    //             this.setState({plants: response.data});
-    //             console.log(response.data);
-    //         })
-    //         .catch(error => {
-    //                 this.setState({error: true});
-    //         });
-    // }
 
     addRowHandler = () => {
         let newRows = this.state.numRows;
@@ -121,21 +97,14 @@ class Bed extends Component {
 
         for (let i = 0; i < bedMatrix.length; i++) {
             bedMatrix[i] = bedMatrix[i].map((plant, j) => {
-                return <BedCol key={j} updatePlant={this.updatePlantsHandler} origPlant={plant}/>
+                return <BedCol 
+                    key={"r" + i + "c" + j}
+                    bedId={this.props.bedNum}
+                    cellId={"r" + i + "c" + j}
+                    updatePlant={this.updatePlantsHandler}
+                    origPlant={plant} />
             });
         }
-
-        // const cols = bedMatrix.map(row => row.map(col => ))
-
-        // const rows1 = bedMatrix.map((col, i) => {
-        //     return <BedRow key={i} cols={col} />
-        // });
-
-        // console.log(rows1);
-        
-        // const cols = [...Array(this.props.bedLayout.numCols)].map((col, i) => {
-        //     return <BedCol key={i} updatePlant={this.updatePlantsHandler}/>
-        // });
 
         const rows = bedMatrix.map((plants, i) => {
             return <BedRow key={i} cols={plants}/>

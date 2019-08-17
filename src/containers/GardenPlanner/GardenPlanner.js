@@ -31,26 +31,30 @@ class GardenPlanner extends Component {
         this.setState({bedCt: newBedCt, currId: newCurrId});
         const update = {
             plants: {
-                r1c1: 'none',
-                r1c2: 'none',
-                r1c3: 'none',
-                r2c2: 'none',
-                r2c3: 'none',
-                r2c4: 'none',
-                r3c1: 'none',
-                r3c2: 'none',
-                r1c4: 'none',
-                r3c3: 'none',
-                r2c1: 'none',
-                r3c4: 'none',
-                r4c1: 'none',
-                r4c2: 'none',
-                r4c3: 'none',
-                r4c4: 'none'
+                r0c0: 'none',
+                r0c1: 0,
+                r0c2: 0,
+                r0c3: 0,
+                r1c0: 0,
+                r1c1: 0,
+                r1c2: 0,
+                r1c3: 0,
+                r2c0: 0,
+                r2c1: 0,
+                r2c2: 0,
+                r2c3: 0,
+                r3c0: 0,
+                r3c1: 0,
+                r3c2: 0,
+                r3c3: 0
             },
             bedId: newCurrId,
             numRows: 1,
-            numCols: 1
+            numCols: 1,
+            maxRows: false,
+            maxCols: false,
+            minRows: true,
+            minCols: true
         };
         console.log(newCurrId);
         if (this.state.currId != null) {
@@ -80,19 +84,14 @@ class GardenPlanner extends Component {
     }
 
     render() {
-        if (this.state.bedLayouts) {
-            return (
-                <div>
-                    <GardenControls 
-                        added={this.addBedHandler}
-                        removed={this.remBedHandler} />
-                    <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} />
-                </div>
-            ); 
-        }
-        else {
-            return null;
-        }
+        return (
+            <div>
+                <GardenControls 
+                    added={this.addBedHandler}
+                    removed={this.remBedHandler} />
+                <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} />
+            </div>
+        ); 
     }
 }
 

@@ -3,6 +3,7 @@ import { Card, Grid, Typography } from '@material-ui/core';
 import PlantMenu from '../Plant/PlantMenu';
 import PlantIcon from '../Plant/PlantIcon';
 import classes from './Bed.module.css';
+import axios from '../../../axios-garden';
 
 export default function BedCol(props) {
     const [plantType, setPlantType] = React.useState(null);
@@ -11,12 +12,20 @@ export default function BedCol(props) {
         () => {
             setPlantType(props.origPlant);
         }, [props.origPlant]
-    // setPlantType(props.origPlant);
     )
+    
     function updatePlantHandler(newType) {
         const oldType = plantType;
         props.updatePlant(oldType, newType);
         setPlantType(newType);
+
+        axios.put('/beds/' + props.bedId + '/plants/' + props.cellId + '.json', "\"" + newType + "\"")
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     if (plantType) {
