@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Garden from '../../components/Garden/Garden';
 import GardenControls from '../../components/Garden/GardenControls';
+import NavBar from '../../components/UI/NavBar';
 import axios from '../../axios-garden';
 
 class GardenPlanner extends Component {
@@ -80,7 +81,8 @@ class GardenPlanner extends Component {
     render() {
         return (
             <React.Fragment>
-                <div style={{display: "flex", justifyContent: "center"}}>
+                <NavBar />
+                <div style={{display: "flex", justifyContent: "center", marginTop: 10, marginBottom: 10}}>
                     <GardenControls 
                         added={this.addBedHandler}
                         removed={this.remBedHandler} />
