@@ -8,16 +8,11 @@ class GardenPlanner extends Component {
         bedCt: 0,
         bedLayouts: null,
         currId: null,
-        // maxRows: false,
-        // maxCols: false,
-        // minRows: true,
-        // minCols: true
     }
 
     componentDidMount() {
         axios.get('/.json')
             .then(response => {
-                console.log(response.data.bedCt, response.data.currId, response.data.beds);
                 this.setState({bedCt: response.data.bedCt, currId: response.data.currId,
                 bedLayouts: response.data.beds});
             });
@@ -56,7 +51,6 @@ class GardenPlanner extends Component {
             minRows: true,
             minCols: true
         };
-        console.log(newCurrId);
         if (this.state.currId != null) {
             const postUrl = '/beds/' + newCurrId + '.json';
             axios.put(postUrl, update)
@@ -85,12 +79,14 @@ class GardenPlanner extends Component {
 
     render() {
         return (
-            <div>
-                <GardenControls 
-                    added={this.addBedHandler}
-                    removed={this.remBedHandler} />
+            <React.Fragment>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <GardenControls 
+                        added={this.addBedHandler}
+                        removed={this.remBedHandler} />
+                </div>
                 <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} />
-            </div>
+            </React.Fragment>
         ); 
     }
 }

@@ -15,8 +15,8 @@ export default function BedCol(props) {
     )
     
     function updatePlantHandler(newType) {
-        const oldType = plantType;
-        props.updatePlant(oldType, newType);
+        // const oldType = plantType;
+        props.updatePlant(props.cellId, newType);
         setPlantType(newType);
 
         axios.put('/beds/' + props.bedId + '/plants/' + props.cellId + '.json', "\"" + newType + "\"")

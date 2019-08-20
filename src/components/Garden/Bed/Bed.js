@@ -6,82 +6,220 @@ import axios from '../../../axios-garden';
 
 class Bed extends Component {
     state = {
-        numRows: 1,
-        numCols: 1,
-        plants: null,
-        maxRows: false,
-        maxCols: false,
-        minRows: true,
-        minCols: true,
-        // error: false
+        numRows: Number(this.props.bedLayout.numRows),
+        numCols: Number(this.props.bedLayout.numCols),
+        plants: this.props.bedLayout.plants,
+        maxRows: JSON.parse(this.props.bedLayout.maxRows),
+        maxCols: JSON.parse(this.props.bedLayout.maxCols),
+        minRows: JSON.parse(this.props.bedLayout.minRows),
+        minCols: JSON.parse(this.props.bedLayout.minCols)
     }
 
     addRowHandler = () => {
         let newRows = this.state.numRows;
         newRows++;
-        this.setState({numRows: newRows});
-        if (this.state.numRows >= 3) {
-            this.setState({maxRows: true});
+        let updPlants = {...this.state.plants};
+
+        const plantArr = Object.keys(updPlants);
+        for (let i = 0; i < this.state.numCols; i++) {
+            let key = plantArr[4*this.state.numRows+i];
+            updPlants[key] = "none";
+        }
+
+        if (newRows >= 4) {
+            this.setState({numRows: newRows, maxRows: true, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/maxRows.json', "\"" + true + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         else {
-            this.setState({minRows: false});
+            this.setState({numRows: newRows, minRows: false, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/minRows.json', "\"" + false + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
+
+        axios.put('/beds/' + this.props.bedNum + '/numRows.json', "\"" + newRows + "\"")
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        axios.put('/beds/' + this.props.bedNum + '/plants.json', updPlants)
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     addColHandler = () => {
         let newCols = this.state.numCols;
         newCols++;
-        this.setState({numCols: newCols});
-        if (this.state.numCols >= 3) {
-            this.setState({maxCols: true});
+        let updPlants = {...this.state.plants};
+
+        const plantArr = Object.keys(updPlants);
+        for (let i = this.state.numCols; i < (this.state.numRows * 4); i+=4) {
+            let key = plantArr[i];
+            updPlants[key] = "none";
+        }
+        
+        if (newCols >= 4) {
+            this.setState({numCols: newCols, maxCols: true, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/maxCols.json', "\"" + true + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         else {
-            this.setState({minCols: false});
-        }    
+            this.setState({numCols: newCols, minCols: false, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/minCols.json', "\"" + false + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        axios.put('/beds/' + this.props.bedNum + '/numCols.json', "\"" + newCols + "\"")
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        axios.put('/beds/' + this.props.bedNum + '/plants.json', updPlants)
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     remRowHandler = () => {
         let newRows = this.state.numRows;
         newRows--;
-        this.setState({numRows: newRows});
+        let updPlants = {...this.state.plants};
+
+        const plantArr = Object.keys(updPlants);
+        for (let i = 0; i < this.state.numCols; i++) {
+            console.log(this.state.numRows);
+            let key = plantArr[4*(this.state.numRows-1)+i];
+            console.log(key);
+            updPlants[key] = 0;
+        }
+
         if (this.state.numRows <= 2) {
-            this.setState({minRows: true});
+            this.setState({numRows: newRows, minRows: true, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/minRows.json', "\"" + true + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         else {
-            this.setState({maxRows: false});
-        }    
+            this.setState({numRows: newRows, maxRows: false, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/maxRows.json', "\"" + false + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        axios.put('/beds/' + this.props.bedNum + '/numRows.json', "\"" + newRows + "\"")
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        axios.put('/beds/' + this.props.bedNum + '/plants.json', updPlants)
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     remColHandler = () => {
         let newCols = this.state.numCols;
         newCols--;
-        this.setState({numCols: newCols});
+        let updPlants = {...this.state.plants};
+
+        const plantArr = Object.keys(updPlants);
+        for (let i = this.state.numCols; i <= (this.state.numRows * 4); i+=4) {
+            let key = plantArr[i-1];
+            updPlants[key] = 0;
+        }
+        
         if (this.state.numCols <= 2) {
-            this.setState({minCols: true});
+            this.setState({numCols: newCols, minCols: true, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/minCols.json', "\"" + true + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         else {
-            this.setState({maxCols: false});
-        }    
+            this.setState({numCols: newCols, maxCols: false, plants: updPlants});
+            axios.put('/beds/' + this.props.bedNum + '/maxCols.json', "\"" + false + "\"")
+                .then(response => {
+                    console.log('received');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        axios.put('/beds/' + this.props.bedNum + '/numCols.json', "\"" + newCols + "\"")
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        axios.put('/beds/' + this.props.bedNum + '/plants.json', updPlants)
+            .then(response => {
+                console.log('received');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
-    updatePlantsHandler = (oldType, newType) => {
-        let oldPlants = {...this.state.plants};
-        oldPlants[oldType]--;
-        oldPlants[newType]++;
-        let newPlants = oldPlants;
-        this.setState({plants: newPlants});
-        const changes = newPlants;
-
-        axios.put('/plants.json', changes)
-            .then(response => {
-                // console.log('data transmitted');
-            });
-        // .catch(error => this.setState({loading: false, purchasing: false}));
+    updatePlantsHandler = (cell, newType) => {
+        let updPlants = {...this.state.plants};
+        updPlants[cell] = newType;
+        this.setState({plants: updPlants});
     }
 
     render() {
         let bedMatrix = [];
-        const plantVals = Object.values(this.props.bedLayout.plants);
+        const plantVals = Object.values(this.state.plants);
         for (let i = 0; i < 4; i++) {
             bedMatrix[i] = [];
             for (let j = 0; j < 4; j++) {
