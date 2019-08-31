@@ -8,8 +8,8 @@ export default function NavBar() {
         <div>
             <AppBar position="static" style={{background: "#106922"}}>
                 <Toolbar>
-                    <Typography variant="h5">
-                        Garden Designer
+                    <Typography variant="h4">
+                        Garden Planner
                     </Typography>
                 </Toolbar>
             </AppBar>

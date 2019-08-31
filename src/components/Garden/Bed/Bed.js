@@ -18,7 +18,7 @@ class Bed extends Component {
     addRowHandler = () => {
         let newRows = this.state.numRows;
         newRows++;
-        let updPlants = {...this.state.plants};
+        let updPlants = this.props.bedLayout.plants;
 
         const plantArr = Object.keys(updPlants);
         for (let i = 0; i < this.state.numCols; i++) {
@@ -66,7 +66,7 @@ class Bed extends Component {
     addColHandler = () => {
         let newCols = this.state.numCols;
         newCols++;
-        let updPlants = {...this.state.plants};
+        let updPlants = this.props.bedLayout.plants;
 
         const plantArr = Object.keys(updPlants);
         for (let i = this.state.numCols; i < (this.state.numRows * 4); i+=4) {
@@ -115,7 +115,7 @@ class Bed extends Component {
     remRowHandler = () => {
         let newRows = this.state.numRows;
         newRows--;
-        let updPlants = {...this.state.plants};
+        let updPlants = this.props.bedLayout.plants;
 
         const plantArr = Object.keys(updPlants);
         for (let i = 0; i < this.state.numCols; i++) {
@@ -163,7 +163,7 @@ class Bed extends Component {
     remColHandler = () => {
         let newCols = this.state.numCols;
         newCols--;
-        let updPlants = {...this.state.plants};
+        let updPlants = this.props.bedLayout.plants;
 
         const plantArr = Object.keys(updPlants);
         for (let i = this.state.numCols; i <= (this.state.numRows * 4); i+=4) {
@@ -210,7 +210,7 @@ class Bed extends Component {
     }
 
     updatePlantsHandler = (cell, newType) => {
-        let updPlants = {...this.state.plants};
+        let updPlants = this.props.bedLayout.plants;
         updPlants[cell] = newType;
         this.setState({plants: updPlants});
     }
@@ -257,34 +257,36 @@ class Bed extends Component {
             <React.Fragment>
                 <Grid item xs={11} lg={3}>
                     <Paper elevation={5} style={{textAlign: "center", paddingBottom: 10}}>
-                        <Container>
+                        <Container style={{marginBottom: 20}}>
                             {rows}
                         </Container>
                         <Button
                             onClick={this.addRowHandler}
                             disabled={this.state.maxRows}
                             variant="outlined"
-                            style={{fontSize: "13px"}}>Add Height</Button>
+                            style={{fontSize: "11px"}}>Add Height</Button>
                         <Button 
                             onClick={this.addColHandler}
                             disabled={this.state.maxCols}
                             variant="outlined"
-                            style={{fontSize: "13px"}}>Add Width</Button>
+                            style={{fontSize: "11px"}}>Add Width</Button>
                         <br></br>
                         <Button 
                             onClick={this.remRowHandler}
                             disabled={this.state.minRows}
                             variant="outlined"
-                            style={{fontSize: "13px"}}>Reduce Height</Button>
+                            style={{fontSize: "11px"}}>Reduce Height</Button>
                         <Button 
                             onClick={this.remColHandler}
                             disabled={this.state.minCols}
                             variant="outlined"
-                            style={{fontSize: "13px"}}>Reduce Width</Button>
+                            style={{fontSize: "11px"}}>Reduce Width</Button>
                         <div>
                             <Button
                                 onClick={() => this.props.removeBed(this.props.bedNum)}
-                                style={{fontSize: "15px", backgroundColor: "#ff5e4d", color: "white", marginTop: 5}}>
+                                disabled={this.props.bedCt <= 1}
+                                variant="outlined"
+                                style={{fontSize: "13px", marginTop: 5}}>
                                 Remove Bed</Button>
                         </div>
                     </Paper>

@@ -9,13 +9,14 @@ class GardenPlanner extends Component {
         bedCt: 0,
         bedLayouts: null,
         currId: null,
+        minBeds: null
     }
 
     componentDidMount() {
         axios.get('/.json')
             .then(response => {
                 this.setState({bedCt: response.data.bedCt, currId: response.data.currId,
-                bedLayouts: response.data.beds});
+                bedLayouts: response.data.beds, minBeds: response.data.minBeds});
             });
     }
 
@@ -54,13 +55,7 @@ class GardenPlanner extends Component {
         if (this.state.currId != null) {
             const postUrl = '/beds/' + newCurrId + '.json';
             axios.put(postUrl, update);
-                // .then(response => {
-                //     console.log('received');
-                // });
             axios.put('/currId.json', newCurrId);
-                // .then(response => {
-                //     console.log('received');
-                // });
             axios.put('/bedCt.json', newBedCt)
                 .then(response => {
                     axios.get('/.json')
@@ -72,40 +67,8 @@ class GardenPlanner extends Component {
     }
 
     remBedHandler = (id) => {
-        // console.log(id);
-        // axios.delete('/beds/' + id + '.json');
-        // let newBedCt = this.state.bedCt;
-        // newBedCt--;
-        // let newCurrId = this.state.currId;
-        // newCurrId--;
-        // if (newBedCt === 0) {
-        //     var update = {
-        //         bedCt: newBedCt,
-        //         currId: newCurrId,
-        //         beds: 0
-        //     }
-        //     axios.put('/.json', update)
-        //         .then(response => {
-        //             axios.get('/.json')
-        //             .then(response => {
-        //                 this.setState({bedCt: response.data.bedCt, bedLayouts: response.data.beds, currId: response.data.currId});
-        //             });
-        //     });
-        // }
-        // else {
-        //     axios.put('/bedCt.json', "\"" + newBedCt + "\"");
-        //     axios.put('/currId.json', "\"" + newCurrId + "\"")
-        //         .then(response => {
-        //             axios.get('/.json')
-        //             .then(response => {
-        //                 this.setState({bedCt: response.data.bedCt, bedLayouts: response.data.beds, currId: response.data.currId});
-        //             });
-        //         });
-        // }
         axios.get('/.json')
             .then(response => {
-                // this.setState({bedCt: response.data.bedCt, currId: response.data.currId,
-                // bedLayouts: response.data.beds});
                 let updBedLayouts = response.data.beds;
                 updBedLayouts.splice(id, 1);
                 let newBedCt = this.state.bedCt;
@@ -136,6 +99,9 @@ class GardenPlanner extends Component {
                         added={this.addBedHandler}/>
                 </div>
                 <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} removed={this.remBedHandler}/>
+                <div style={{textAlign: "center", color: "grey", marginTop: 100}}>Icons made by&nbsp;
+                    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a>
+                </div>
             </React.Fragment>
         ); 
     }
