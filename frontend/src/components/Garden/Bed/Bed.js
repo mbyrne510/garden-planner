@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Paper, Button, Container } from '@material-ui/core';
 import BedCol from './BedCol';
 import BedRow from './BedRow';
-import axios from '../../../axios-garden';
+import axios from 'axios';
 
 class Bed extends Component {
     state = {
@@ -195,6 +195,12 @@ class Bed extends Component {
     render() {
         let bedMatrix = [];
         const plantVals = Object.values(this.props.bedLayout.plants);
+
+        for (let i = 0; i < plantVals.length; i++) {
+            if (plantVals[i] === "0") {
+                plantVals[i] = 0;
+            }
+        }
         
         for (let i = 0; i < 4; i++) {
             bedMatrix[i] = [];

@@ -5,7 +5,9 @@ const BedCt = require('../models/BedCt');
 
 router.get('/', (req, res) => {
     BedCt.find()
-        .then(bedCt => res.json(bedCt));
+        .then(bedCt => {
+            res.json(bedCt);
+        });
 });
 
 router.put('/', (req, res) => {

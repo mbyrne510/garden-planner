@@ -69,11 +69,11 @@ const BedSchema = new Schema({
         }
     },
     numRows: {
-        type: String,
+        type: Number,
         required: true
     },
     numCols: {
-        type: String,
+        type: Number,
         required: true
     },
     maxRows: {

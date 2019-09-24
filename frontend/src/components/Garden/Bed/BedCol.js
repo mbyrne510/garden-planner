@@ -3,7 +3,7 @@ import { Card, Grid, Typography } from '@material-ui/core';
 import PlantMenu from '../Plant/PlantMenu';
 import PlantIcon from '../Plant/PlantIcon';
 import classes from './Bed.module.css';
-import axios from '../../../axios-garden';
+import axios from 'axios';
 
 export default function BedCol(props) {
     const [plantType, setPlantType] = React.useState(null);
@@ -17,7 +17,12 @@ export default function BedCol(props) {
     function updatePlantHandler(newType) {
         props.updatePlant(props.cellId, newType);
         setPlantType(newType);
-        axios.put('https://garden-planner-baff9.firebaseio.com/beds/' + props.bedId + '/plants/' + props.cellId + '.json', "\"" + newType + "\"");
+        const plantIndex = "plants." + props.cellId;
+        const plantUpdate = {
+            [plantIndex]: newType
+        };
+//this bedId isn't correct - needs to be the '_id' from mongodb
+        axios.put('http://localhost:4000/' + props.bedId + '/plants', plantUpdate);
     }
 
     if (plantType) {
