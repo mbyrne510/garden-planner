@@ -44,15 +44,12 @@ class Bed extends Component {
                 });
         }
 
-        const numRowsUpdate = {
+        const plantDimsUpdate = {
+            plants: plantsUpdate,
             numRows: newRows
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, numRowsUpdate)
-            .catch(error => {
-                console.log(error);
-            });
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantsUpdate)
+        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -219,7 +216,7 @@ class Bed extends Component {
             bedMatrix[i] = bedMatrix[i].map((plant, j) => {
                 return <BedCol 
                     key={"r" + i + "c" + j}
-                    bedId={this.props.bedNum}
+                    bedId={this.props.bedLayout._id}
                     cellId={"r" + i + "c" + j}
                     updatePlant={this.updatePlantsHandler}
                     origPlant={plant} />
@@ -260,7 +257,7 @@ class Bed extends Component {
                             style={{fontSize: "11px"}}>Reduce Width</Button>
                         <div>
                             <Button
-                                onClick={() => this.props.removeBed(this.props.bedNum)}
+                                onClick={() => this.props.removeBed(this.props.bedLayout._id)}
                                 disabled={this.props.bedCt <= 1}
                                 variant="outlined"
                                 style={{fontSize: "13px", marginTop: 5}}>

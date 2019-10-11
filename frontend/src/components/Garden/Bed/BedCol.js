@@ -22,7 +22,7 @@ export default function BedCol(props) {
             [plantIndex]: newType
         };
 //this bedId isn't correct - needs to be the '_id' from mongodb
-        axios.put('http://localhost:4000/' + props.bedId + '/plants', plantUpdate);
+        axios.patch('http://localhost:4000/beds/' + props.bedId + '/plants', plantUpdate);
     }
 
     if (plantType) {

@@ -4,6 +4,7 @@ const router = express.Router();
 const Bed = require('../models/Bed');
 
 router.get('/', (req, res) => {
+    console.log('test')
     Bed.find()
         .then(beds => {
             console.log(beds);
@@ -26,7 +27,7 @@ router.post('/', (req, res) => {
 
 router.patch('/:bedId', (req, res) => {
     const updObj = req.body;
-    Bed.update({_id: req.params.bedId}, {$set: updObj})
+    Bed.updateOne({_id: req.params.bedId}, {$set: updObj})
         .exec()
         .then(result => {
             console.log(result);
@@ -49,6 +50,7 @@ router.delete('/:id', (req, res) => {
 
 router.patch('/:bedId/plants', (req, res) => {
     const updObj = req.body;
+    console.log('test')
     Bed.update({_id: req.params.bedId}, {$set: updObj})
         .exec()
         .then(result => {

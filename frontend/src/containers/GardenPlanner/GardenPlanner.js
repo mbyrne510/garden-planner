@@ -58,20 +58,24 @@ class GardenPlanner extends Component {
         };
         axios.post('http://localhost:4000/beds', bedsUpdate)
             .then(response => {
-                this.setState({bedLayouts: response.data});
+                axios.get('http://localhost:4000/beds')
+                    .then(response => {
+                        console.log(response.data);
+                        this.setState({bedLayouts: response.data});
+                    });    
             })
         axios.put('http://localhost:4000/bedCt', bedCtUpdate)
             .then(response => {
-                this.setState({bedCt: response.data.bedCt})
+                // this.setState({bedCt: response.data.bedCt})
             });
     }
 
     remBedHandler = (id) => {
-        axios.delete('http://localhost:4000/beds' + id)
+        axios.delete('http://localhost:4000/beds/' + id)
             .then(response => {
                 axios.get('http://localhost:4000/beds')
                     .then(response => {
-                        this.setState({bedLayouts: response.data.beds});
+                        this.setState({bedLayouts: response.data});
                     })
                 let newBedCt = this.state.bedCt;
                 newBedCt--;
@@ -80,26 +84,31 @@ class GardenPlanner extends Component {
                 }
                 axios.put('http://localhost:4000/bedCt', bedCtUpdate)
                     .then(response => {
-                        this.setState({bedCt: response.data.bedCt});
+                        // this.setState({bedCt: response.data.bedCt});
                     });        
             });
     }
     
     render() {
         console.log(this.state.bedLayouts, this.state.bedCt);
-        return (
-            <React.Fragment>
-                <NavBar />
-                <div style={{display: "flex", justifyContent: "center", marginTop: 10, marginBottom: 10}}>
-                    <GardenControls 
-                        added={this.addBedHandler}/>
-                </div>
-                <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} removed={this.remBedHandler}/>
-                <div style={{textAlign: "center", color: "grey", marginTop: 100}}>Icons made by&nbsp;
-                    <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a>
-                </div>
-            </React.Fragment>
-        ); 
+        if (this.state.bedLayouts && this.state.bedCt) {
+            return (
+                <React.Fragment>
+                    <NavBar />
+                    <div style={{display: "flex", justifyContent: "center", marginTop: 10, marginBottom: 10}}>
+                        <GardenControls 
+                            added={this.addBedHandler}/>
+                    </div>
+                    <Garden beds={this.state.bedLayouts} bedCt={this.state.bedCt} removed={this.remBedHandler}/>
+                    <div style={{textAlign: "center", color: "grey", marginTop: 100}}>Icons made by&nbsp;
+                        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> and licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">CC 3.0 BY</a>
+                    </div>
+                </React.Fragment>
+            );    
+        }
+        else {
+            return null;
+        }
     }
 }
 

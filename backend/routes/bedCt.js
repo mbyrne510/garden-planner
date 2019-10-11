@@ -11,10 +11,19 @@ router.get('/', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-    const newBedCt = new BedCt({
-        bedCt: req.body.bedCt
-    });
-    newBedCt.save().then(bedCt => res.json(bedCt));
-})
+    updObj = req.body;
+    BedCt.update({_id: "5d8985ea26be3b0245cd0c34"}, {$set: updObj})
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 module.exports = router;
