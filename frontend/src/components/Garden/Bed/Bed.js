@@ -15,6 +15,25 @@ class Bed extends Component {
         minCols: JSON.parse(this.props.bedLayout.minCols)
     }
 
+    componentDidUpdate(prevProps) {
+        if (
+            this.props.bedLayout.minRows !== prevProps.bedLayout.minRows ||
+            this.props.bedLayout.minCols !== prevProps.bedLayout.minCols ||
+            this.props.bedLayout.maxRows !== prevProps.bedLayout.maxRows ||
+            this.props.bedLayout.maxCols !== prevProps.bedLayout.maxCols ) {
+            this.setState({
+                minRows: this.props.bedLayout.minRows,
+                minCols: this.props.bedLayout.minCols,
+                maxRows: this.props.bedLayout.maxRows,
+                maxCols: this.props.bedLayout.maxCols,
+                numRows: this.props.bedLayout.numRows,
+                numCols: this.props.bedLayout.numCols
+            });
+            console.log(this.props.bedLayout.minRows);
+            console.log(prevProps.bedLayout.minRows)
+        }
+    }
+
     addRowHandler = () => {
         let newRows = this.state.numRows;
         newRows++;
@@ -84,15 +103,12 @@ class Bed extends Component {
                 });
         }
 
-        const numColsUpdate = {
+        const plantDimsUpdate = {
+            plants: plantsUpdate,
             numCols: newCols
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, numColsUpdate)
-            .catch(error => {
-                console.log(error);
-            });
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantsUpdate)
+        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -127,15 +143,12 @@ class Bed extends Component {
                 });
         }
 
-        const numRowsUpdate = {
+        const plantDimsUpdate = {
+            plants: plantsUpdate,
             numRows: newRows
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, numRowsUpdate)
-            .catch(error => {
-                console.log(error);
-            });
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantsUpdate)
+        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -169,15 +182,12 @@ class Bed extends Component {
                 });
         }
 
-        const numColsUpdate = {
+        const plantDimsUpdate = {
+            plants: plantsUpdate,
             numCols: newCols
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, numColsUpdate)
-            .catch(error => {
-                console.log(error);
-            });
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantsUpdate)
+        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -190,6 +200,8 @@ class Bed extends Component {
     }
 
     render() {
+        // console.log(this.state.minCols);
+        // console.log(this.state.minRows);
         let bedMatrix = [];
         const plantVals = Object.values(this.props.bedLayout.plants);
 

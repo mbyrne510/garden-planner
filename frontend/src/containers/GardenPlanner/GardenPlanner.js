@@ -13,12 +13,10 @@ class GardenPlanner extends Component {
     componentDidMount() {
         axios.get('http://localhost:4000/beds')
             .then(response => {
-                console.log(response.data);
                 this.setState({bedLayouts: response.data});
             });
         axios.get('http://localhost:4000/bedCt')
             .then(response => {
-                console.log(response.data[0].bedCt);
                 this.setState({bedCt: response.data[0].bedCt});
             });
     }
@@ -60,7 +58,6 @@ class GardenPlanner extends Component {
             .then(response => {
                 axios.get('http://localhost:4000/beds')
                     .then(response => {
-                        console.log(response.data);
                         this.setState({bedLayouts: response.data});
                     });    
             })
@@ -79,8 +76,9 @@ class GardenPlanner extends Component {
                     })
                 let newBedCt = this.state.bedCt;
                 newBedCt--;
+                this.setState({bedCt: newBedCt})
                 const bedCtUpdate = {
-                    bedCt: newBedCt,
+                    bedCt: newBedCt
                 }
                 axios.put('http://localhost:4000/bedCt', bedCtUpdate)
                     .then(response => {
@@ -90,7 +88,6 @@ class GardenPlanner extends Component {
     }
     
     render() {
-        console.log(this.state.bedLayouts, this.state.bedCt);
         if (this.state.bedLayouts && this.state.bedCt) {
             return (
                 <React.Fragment>

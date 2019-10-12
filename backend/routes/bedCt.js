@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.put('/', (req, res) => {
     updObj = req.body;
-    BedCt.update({_id: "5d8985ea26be3b0245cd0c34"}, {$set: updObj})
+    BedCt.update({_id: "5da1fa2f1c9d4400002c36d5"}, {$set: updObj})
         .exec()
         .then(result => {
             console.log(result);
