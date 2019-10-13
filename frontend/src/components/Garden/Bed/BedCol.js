@@ -21,8 +21,7 @@ export default function BedCol(props) {
         const plantUpdate = {
             [plantIndex]: newType
         };
-//this bedId isn't correct - needs to be the '_id' from mongodb
-        axios.patch('http://localhost:4000/beds/' + props.bedId + '/plants', plantUpdate);
+        axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + props.bedId + '/plants', plantUpdate);
     }
 
     if (plantType) {

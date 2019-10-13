@@ -1,7 +1,6 @@
 import React from 'react';
 import Bed from './Bed/Bed';
 import Grid from '@material-ui/core/Grid';
-//import GardenControls from './GardenControls';
 
 const garden = (props) => {
     if (props.bedCt > 0) {

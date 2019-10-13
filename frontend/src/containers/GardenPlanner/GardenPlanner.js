@@ -54,23 +54,23 @@ class GardenPlanner extends Component {
         const bedCtUpdate = {
             bedCt: newBedCt
         };
-        axios.post('http://localhost:4000/beds', bedsUpdate)
+        axios.post('https://sleepy-everglades-26176.herokuapp.com/beds', bedsUpdate)
             .then(response => {
-                axios.get('http://localhost:4000/beds')
+                axios.get('https://sleepy-everglades-26176.herokuapp.com/beds')
                     .then(response => {
                         this.setState({bedLayouts: response.data});
                     });    
             })
-        axios.put('http://localhost:4000/bedCt', bedCtUpdate)
+        axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate)
             .then(response => {
                 // this.setState({bedCt: response.data.bedCt})
             });
     }
 
     remBedHandler = (id) => {
-        axios.delete('http://localhost:4000/beds/' + id)
+        axios.delete('https://sleepy-everglades-26176.herokuapp.com/beds/' + id)
             .then(response => {
-                axios.get('http://localhost:4000/beds')
+                axios.get('https://sleepy-everglades-26176.herokuapp.com/beds')
                     .then(response => {
                         this.setState({bedLayouts: response.data});
                     })
@@ -80,7 +80,7 @@ class GardenPlanner extends Component {
                 const bedCtUpdate = {
                     bedCt: newBedCt
                 }
-                axios.put('http://localhost:4000/bedCt', bedCtUpdate)
+                axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate)
                     .then(response => {
                         // this.setState({bedCt: response.data.bedCt});
                     });        

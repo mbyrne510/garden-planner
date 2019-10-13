@@ -49,7 +49,7 @@ class Bed extends Component {
         if (newRows >= 4) {
             this.setState({numRows: newRows, maxRows: true, plants: plantsUpdate});
             const maxRowsUpdate = {maxRows: true};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, maxRowsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, maxRowsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -57,7 +57,7 @@ class Bed extends Component {
         else {
             this.setState({numRows: newRows, minRows: false, plants: plantsUpdate});
             const minRowsUpdate = {minRows: false};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, minRowsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, minRowsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -68,7 +68,7 @@ class Bed extends Component {
             numRows: newRows
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
+        axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -89,7 +89,7 @@ class Bed extends Component {
         if (newCols >= 4) {
             this.setState({numCols: newCols, maxCols: true, plants: plantsUpdate});
             const maxColsUpdate = {maxCols: true};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, maxColsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, maxColsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -97,7 +97,7 @@ class Bed extends Component {
         else {
             this.setState({numCols: newCols, minCols: false, plants: plantsUpdate});
             const minColsUpdate = {minCols: false};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, minColsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, minColsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -108,7 +108,7 @@ class Bed extends Component {
             numCols: newCols
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
+        axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -129,7 +129,7 @@ class Bed extends Component {
         if (this.state.numRows <= 2) {
             this.setState({numRows: newRows, minRows: true, plants: plantsUpdate});
             const minRowsUpdate = {minRows: true};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, minRowsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, minRowsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -137,7 +137,7 @@ class Bed extends Component {
         else {
             this.setState({numRows: newRows, maxRows: false, plants: plantsUpdate});
             const maxRowsUpdate = {maxRows: false};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, maxRowsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, maxRowsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -148,7 +148,7 @@ class Bed extends Component {
             numRows: newRows
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
+        axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
@@ -168,7 +168,7 @@ class Bed extends Component {
         if (this.state.numCols <= 2) {
             this.setState({numCols: newCols, minCols: true, plants: plantsUpdate});
             const minColsUpdate = {minCols: true};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, minColsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, minColsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -176,7 +176,7 @@ class Bed extends Component {
         else {
             this.setState({numCols: newCols, maxCols: false, plants: plantsUpdate});
             const maxColsUpdate = {maxCols: false};
-            axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, maxColsUpdate)
+            axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, maxColsUpdate)
                 .catch(error => {
                     console.log(error);
                 });
@@ -187,7 +187,7 @@ class Bed extends Component {
             numCols: newCols
         };
 
-        axios.patch('http://localhost:4000/beds/' + this.props.bedLayout._id, plantDimsUpdate)
+        axios.patch('https://sleepy-everglades-26176.herokuapp.com/beds/' + this.props.bedLayout._id, plantDimsUpdate)
             .catch(error => {
                 console.log(error);
             });
