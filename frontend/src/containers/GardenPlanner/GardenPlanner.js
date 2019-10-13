@@ -11,11 +11,11 @@ class GardenPlanner extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/beds')
+        axios.get('https://sleepy-everglades-26176.herokuapp.com/beds')
             .then(response => {
                 this.setState({bedLayouts: response.data});
             });
-        axios.get('http://localhost:4000/bedCt')
+        axios.get('https://sleepy-everglades-26176.herokuapp.com/bedCt')
             .then(response => {
                 this.setState({bedCt: response.data[0].bedCt});
             });
