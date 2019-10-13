@@ -61,10 +61,7 @@ class GardenPlanner extends Component {
                         this.setState({bedLayouts: response.data});
                     });    
             })
-        axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate)
-            .then(response => {
-                // this.setState({bedCt: response.data.bedCt})
-            });
+        axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate);
     }
 
     remBedHandler = (id) => {
@@ -80,10 +77,7 @@ class GardenPlanner extends Component {
                 const bedCtUpdate = {
                     bedCt: newBedCt
                 }
-                axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate)
-                    .then(response => {
-                        // this.setState({bedCt: response.data.bedCt});
-                    });        
+                axios.put('https://sleepy-everglades-26176.herokuapp.com/bedCt', bedCtUpdate);
             });
     }
     

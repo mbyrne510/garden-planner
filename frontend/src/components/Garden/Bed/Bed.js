@@ -29,8 +29,6 @@ class Bed extends Component {
                 numRows: this.props.bedLayout.numRows,
                 numCols: this.props.bedLayout.numCols
             });
-            console.log(this.props.bedLayout.minRows);
-            console.log(prevProps.bedLayout.minRows)
         }
     }
 
